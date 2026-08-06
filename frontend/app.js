@@ -75,12 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('file', selectedFile);
 
         try {
-            // ⚠️ DEPLOYMENT INSTRUCTIONS ⚠️
-            // When hosting on Vercel, change this API_URL to your Render/Railway backend URL.
-            // Example: const API_URL = 'https://clear-vision-api.onrender.com/api/restore';
-            const API_URL = 'http://127.0.0.1:8000/api/restore';
-
-            const response = await fetch(API_URL, {
+            // Note: Keep this pointing to localhost for local testing
+            const response = await fetch('http://127.0.0.1:8000/api/restore', {
                 method: 'POST',
                 body: formData
             });
