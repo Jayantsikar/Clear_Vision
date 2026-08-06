@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear-Vision ✨ Image Restoration</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>✨ Clear-Vision</h1>
+            <p>AI-powered image restoration platform. Upload a noisy image to restore its clarity instantly.</p>
+        </header>
+
+        <main>
+            <div class="upload-section">
+                <input type="file" id="imageInput" accept="image/jpeg, image/png, image/jpg" hidden>
+                <div class="drop-zone" id="dropZone">
+                    <span class="icon">📁</span>
+                    <p>Drag & Drop your image here or <strong>Click to Upload</strong></p>
+                </div>
+            </div>
+
+            <div class="action-section">
+                <button id="restoreBtn" class="primary-btn" disabled>Restore Image ✨</button>
+            </div>
+
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <div class="image-card">
+                    <h3>Original</h3>
+                    <div class="image-wrapper">
+                        <img id="originalPreview" src="" alt="Original Image">
+                    </div>
+                </div>
+                
+                <div class="image-card">
+                    <h3>Restored</h3>
+                    <div class="image-wrapper loading-wrapper" id="restoredWrapper">
+                        <div class="loader" id="loader"></div>
+                        <img id="restoredPreview" src="" alt="Restored Image" style="display: none;">
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -9,7 +9,12 @@ The project includes a full pipeline: a data corruption script to generate train
 ## 📂 Project Structure
 
 ```text
-├── app.py                 # Streamlit Web Interface for testing the model
+├── backend/               # Python server (optional separation)
+├── frontend/              # Web platform assets
+│   ├── index.html         # Main web page
+│   ├── style.css          # UI Styling
+│   └── app.js             # API interaction logic
+├── server.py              # FastAPI server for inference
 ├── corrupt_image.py       # Script to generate noisy/blurred data from clean images
 ├── dataset.py             # Custom PyTorch Dataset loader
 ├── model.py               # Neural Network Architecture (Autoencoder)
@@ -20,7 +25,7 @@ The project includes a full pipeline: a data corruption script to generate train
 └── denoising_model.pth    # The trained model weights (generated after training)
 
 Run the following command to install the required packages:
-pip install torch torchvision streamlit opencv-python numpy pillow
+pip install torch torchvision opencv-python numpy pillow fastapi uvicorn python-multipart
 
 Run the corruption script to generate the "bad" versions of these images:
 python corrupt_image.py
@@ -28,5 +33,11 @@ python corrupt_image.py
 Now, train the Neural Network to map the "Corrupted" images back to the "Clean" ones.
 python train.py
 
-Once the model is trained, launch the web interface to test it:
-streamlit run app.py
+### Launching the Web Platform
+
+Once the model is trained, start the API server:
+```bash
+uvicorn server:app --reload
+```
+
+Then, simply open `frontend/index.html` in your favorite web browser (e.g. Chrome, Safari).

@@ -10,8 +10,12 @@ class NoisyImageDataset(Dataset):
         self.noisy_dir = noisy_dir
         self.transform = transform
         
-        # Get list of filenames (assuming filenames match in both folders)
-        self.image_files = [f for f in os.listdir(clean_dir) if f.endswith(('.png', '.jpg', '.jpeg'))]
+        # Get list of filenames that exist in both folders
+        self.image_files = []
+        for f in os.listdir(clean_dir):
+            if f.lower().endswith(('.png', '.jpg', '.jpeg')):
+                if os.path.exists(os.path.join(noisy_dir, f)):
+                    self.image_files.append(f)
 
     def __len__(self):
         return len(self.image_files)
@@ -26,6 +30,11 @@ class NoisyImageDataset(Dataset):
         # Read Images
         clean_img = cv2.imread(clean_path)
         noisy_img = cv2.imread(noisy_path)
+        
+        # If an image fails to load, randomly pick another one to prevent crashing
+        if clean_img is None or noisy_img is None:
+            import random
+            return self.__getitem__(random.randint(0, len(self.image_files) - 1))
         
         # Convert BGR (OpenCV) to RGB
         clean_img = cv2.cvtColor(clean_img, cv2.COLOR_BGR2RGB)
